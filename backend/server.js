@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config();
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 // creating express app
 const app =  express();
@@ -16,6 +16,8 @@ app.use('/api/workouts', require("./routes/workouts"));
 app.use('/api/workouts', require("./routes/workouts"));
 // api request for deleting a workout
 app.use('/api/workouts', require("./routes/workouts"));
+//api request for user login and signup
+app.use('/api/user', require("./routes/user"));
 
 
 app.listen(process.env.PORT , () => {
