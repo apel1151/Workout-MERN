@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Popins:wght@300;400;400;500;600;800&family=VT323&display=swap");
+/* google font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap");
 
 /* layout */
-
 :root {
   --primary: #1aac83;
   --error: #e7195a;
@@ -35,37 +35,33 @@ header a {
 /* homepage */
 .home {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3fr 1fr;
+  gap: 100px;
 }
-.workoutDetails {
-  display: flex;
-  justify-content: space-between;
+.workout-details {
   background: #fff;
   border-radius: 4px;
   margin: 20px auto;
   padding: 20px;
   position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
-  max-width: 70%;
 }
-.workoutDetails h4 {
+.workout-details h4 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
   color: var(--primary);
 }
-.workoutDetails p {
+.workout-details p {
   margin: 0;
   font-size: 0.9em;
   color: #555;
 }
-.workoutDetails span {
+.workout-details span {
   position: absolute;
   top: 20px;
   right: 20px;
   cursor: pointer;
-  background: #f1f1f1;
   padding: 6px;
-  border-radius: 50%;
   color: #333;
 }
 
@@ -74,13 +70,7 @@ label,
 input {
   display: block;
 }
-form {
-  box-shadow: 0px 0px 5px 5px rgb(214, 213, 213);
-  height: 480px;
-  padding: 5px;
-  margin: 10px;
-  width: 60%;
-}
+
 input {
   padding: 10px;
   margin-top: 10px;
@@ -106,4 +96,37 @@ div.error {
   color: var(--error);
   border-radius: 4px;
   margin: 20px 0;
+}
+input.error {
+  border: 1px solid var(--error);
+}
+
+/* navbar */
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a,
+nav button {
+  margin-left: 10px;
+}
+nav button {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-size: 1em;
+}
+
+/* auth forms */
+form.signup,
+form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
 }

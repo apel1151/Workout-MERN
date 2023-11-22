@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-// import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
-import { useContext } from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { WorkoutsContext } from "../context/WorkoutContext";
 
 const WorkoutForm = () => {
   const { dispatch } = useContext(WorkoutsContext);
+  const { user } = useContext(AuthContext);
   const [title, setTitle] = useState("");
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+
 
 // removing error message after a while
   useEffect(() => {
@@ -25,18 +26,25 @@ const WorkoutForm = () => {
 // create a new workout
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // checking if user doesn't login, he can't create workout
+    if (!user) {
+      setError('You must be logged in')
+      return
+    }
     const workout = { title, load, reps };
     const response = await fetch("/api/workouts/addWorkout", {
       method: "POST",
       body: JSON.stringify(workout),
+      // here sending header as authorization of token to the backend middleware 
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       },
     });
     const json = await response.json();
 
     if (!response.ok) {
-      setError("Please fill all the information");
+      setError(json.error);
     }
     if (response.ok) {
       setTitle("");
@@ -52,31 +60,30 @@ const WorkoutForm = () => {
   };
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Add a New Workout</h3>
+      <h3>Add a New Exercise</h3>
 
-      <label>Exercise Title:</label>
-      <input
+      <label>Excercise Title:</label>
+      <input 
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-      ></input>
+      />
 
       <label>Load (in kg):</label>
-      <input
+      <input 
         type="number"
         onChange={(e) => setLoad(e.target.value)}
         value={load}
-      ></input>
+      />
 
       <label>Reps:</label>
-      <input
+      <input 
         type="number"
         onChange={(e) => setReps(e.target.value)}
         value={reps}
-      ></input>
+      />
 
       <button>Add Workout</button>
-      {message && <div style={{color: "green", marginTop: "15px"}}>{message}</div>}
       {error && <div className="error">{error}</div>}
     </form>
   );
